@@ -15,11 +15,11 @@ export type Result<T> = ok<T> | failure<T>;
 export const makeOk = <T>(val: T): ok<T> => ({ tag: "Ok", value: val});
 export const makeFailure = <T>(msg: string): failure<T> => ({ tag: "Failure", message: msg});
 
-export const isOk = <T>(x: Result<T>): x is ok<T> => x.tag === "Ok";
-export const isFailure = <T>(x: Result<T>): x is failure<T> => x.tag != "Ok";;
+export const isOk = <T>(x: any): x is ok<T> => x.tag === "Ok";
+export const isFailure = <T>(x: any): x is failure<T> => x.tag === "Failure";;
 
 /* Question 4 */
-export const bind = <T, U>(res: Result<T>, f: (x: T) => Result<U>): Result<U> =>{
+export const bind1 = <T, U>(res: Result<T>, f: (x: T) => Result<U>): Result<U> =>{
     if(isOk(res)){
         const okToReturn=f(res.value);
         return okToReturn;
@@ -88,4 +88,4 @@ export const naiveValidateUser = (user : User):Result<User>=>{
 };
 
 export const monadicValidateUser =(user : User): Result<User> =>
-    (bind(bind(bind(makeOk(user),validateName),validateEmail),validateHandle));
+    (bind1(bind1(bind1(makeOk(user),validateName),validateEmail),validateHandle));
