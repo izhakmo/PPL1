@@ -56,13 +56,13 @@ export const naiveValidateUser = (user : User):Result<User>=>{
         return makeOk(user);
     }
     else if(isFailure(userName)){
-        return makeFailure(userName.message);
+        return userName;
     }
     else if(isFailure(userEmail)){
-        return makeFailure(userEmail.message);
+        return userEmail;
     }
     else if(isFailure(userHandle)){
-        return makeFailure(userHandle.message);
+        return userHandle;
     }
     else return makeFailure("damn son!!!!!");
 };
