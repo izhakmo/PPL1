@@ -1,12 +1,12 @@
 /* Question 3 */
 
 interface ok<T>{
-    tag: string,
+    tag: "Ok",
     value: T
 }
 
 interface failure<T>{
-    tag: string,
+    tag: "Failure",
     message: string
 }
 
@@ -21,13 +21,9 @@ export const isFailure = <T>(x: any): x is failure<T> => x.tag === "Failure";;
 /* Question 4 */
 export const bind1 = <T, U>(res: Result<T>, f: (x: T) => Result<U>): Result<U> =>{
     if(isOk(res)){
-        const okToReturn=f(res.value);
-        return okToReturn;
+        return f(res.value);
     }
-    else if(isFailure(res)){
-        return res;
-    }
-    else return makeFailure("error");
+    else return res;
 };
 
 /* Question 5 */
@@ -57,23 +53,12 @@ export const naiveValidateUser = (user : User):Result<User>=>{
     const userEmail=validateEmail(user);
     const userHandle=validateHandle(user);
     if(isOk(userName) && isOk(userEmail) && isOk(userHandle)){
-        // const tmpName=userName.value.name;
-        // const tmpmain=userEmail.value.email;
-        // const tmphandle=userHandle.value.handle;
         const userToReturn = {
             name: userName.value.name,
             email: userEmail.value.email,
             handle: userHandle.value.handle
         };
         return makeOk(userToReturn);
-        // {
-        //     tag: "Ok",
-        //     value: {
-        //     name: userName.value.name,
-        //     email: userEmail.value.email,
-        //     handle: userHandle.value.handle
-        //     }
-        // };
     }
     else if(isFailure(userName)){
         return makeFailure(userName.message);
@@ -87,5 +72,5 @@ export const naiveValidateUser = (user : User):Result<User>=>{
     else return makeFailure("damn son!!!!!");
 };
 
-export const monadicValidateUser =(user : User): Result<User> =>
+export const monadicValidateUser =(user : User) : Result<User> =>
     (bind1(bind1(bind1(makeOk(user),validateName),validateEmail),validateHandle));

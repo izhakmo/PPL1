@@ -1,15 +1,12 @@
 /* Question 1 */
 
 interface some<T>{
-    tag : string;
+    tag : "Some";
     value : T;
-    // log : string[];
 }
 
 interface none<T>{
-    tag : string;
-    //  value ?: T;
-    // log ?: string[];
+    tag : "None";
 }
 
 export type Optional<T> = some<T> | none<T>;
@@ -23,14 +20,7 @@ export const isNone = <T>(x: any): x is none<T> => x.tag === "None";
 /* Question 2 */
 export const bind = <T, U>(Opt: Optional<T>, f: (x: T) => Optional<U>): Optional<U> => {
     if(isSome(Opt)){
-        const newOpt = f(Opt.value);
-        if(isSome(newOpt)){
-            return {
-                tag: newOpt.tag,
-                value: newOpt.value,
-                // log: Opt.log.concat(newOpt.log)
-            };
-        }
+        return f(Opt.value);
     }
         return makeNone();
 };
