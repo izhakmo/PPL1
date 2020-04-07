@@ -33,6 +33,10 @@ describe("Assignment 1 Part 2", () => {
             let wf = composeMany([(x: number) => x * x, (x: number) => x * 2, (x: number) => x + 1]);
             expect(wf(4)).to.equal(100);
           })
+          it("compose 0 funcs", () => {
+            let wf = composeMany([]);
+            expect(wf(4)).to.equal(4);
+          })
     })  
 
 

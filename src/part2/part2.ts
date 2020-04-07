@@ -10,7 +10,7 @@ export const mapMat = <T> (pred : ((x:T)=> T ),elements :T[][]) : T[][] =>
 
 /* Question 3 */
 export const composeMany =<T> (array :Array<((x:T) =>T)>) : ((x:T)=>T) =>
-    array.reduce((acc,cur)=> R.compose(acc,cur),);
+    array.reduce((acc,cur)=> R.compose(acc,cur), ((x:T)=>x) );
 
 /* Question 4 */
 interface Languages {
