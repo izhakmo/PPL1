@@ -53,12 +53,7 @@ export const naiveValidateUser = (user : User):Result<User>=>{
     const userEmail=validateEmail(user);
     const userHandle=validateHandle(user);
     if(isOk(userName) && isOk(userEmail) && isOk(userHandle)){
-        const userToReturn = {
-            name: userName.value.name,
-            email: userEmail.value.email,
-            handle: userHandle.value.handle
-        };
-        return makeOk(userToReturn);
+        return makeOk(user);
     }
     else if(isFailure(userName)){
         return makeFailure(userName.message);

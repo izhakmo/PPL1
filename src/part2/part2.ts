@@ -37,8 +37,8 @@ interface Pokemon {
 }
 
 export const maxSpeed = (pokedex : Pokemon[]) : Pokemon[] =>{    //finding maxSpeed
-    let fastAndFurious : Number = pokedex.reduce((maxSpeed:Number,pikachu :Pokemon) =>
-    (pikachu.base.Speed>maxSpeed)? maxSpeed=pikachu.base.Speed :maxSpeed,0 );
+    let fastAndFurious : Number = pokedex.reduce((maxSp:Number,pikachu :Pokemon) =>
+    (pikachu.base.Speed>maxSp)? maxSp=pikachu.base.Speed :maxSp,0 );
 
     return pokedex.filter(x =>x.base.Speed==fastAndFurious);   //return array of fastest
 }
